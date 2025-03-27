@@ -1,0 +1,33 @@
+Create assembly program
+	$vim prog_name.asm
+After coding Save .asm file by;
+	Esc --> :w -->Esc
+
+Linux Commans to assemble/compile
+
+	$nasm -f elf32 -g -F stabs -l lst.l -o obj.o prog_name.asm
+	
+Linux Commands to link obj
+	$ld -m elf_i386 -o exe.X obj.o
+	
+In assembly;
+
+	*1 line is an instruction
+	*1-5 parts can be there.
+	*consists of 
+		MyLab: 		Add 				15,25 ; 	hi
+		label  	instruction 		operands		comments
+	*in an instruction, only instruction is necessary and all other 4 are optional
+	
+The code;
+
+	section .data	--> Reserved memory for variables)
+	section .bss	-->								 )	Segments memory for program/process
+	section .text	-->								 )
+	global _start
+
+	_start:			--> Like main(). this declares startin point.
+
+	mov ebx,0		--> mov is copy. copies from right to left (0 to ebx[ebx is an variable/registy])
+	mov eax,1
+	int 0x80		--> Interrupts (check for mouse/keyboard differences which try to stop the process[like ctrl+D])
