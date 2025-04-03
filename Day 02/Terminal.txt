@@ -1,0 +1,27 @@
+    1  ls
+    2  vim Makefile
+    3  rm obj.o
+    4  rm exe.x
+    5  make
+    6  sudo apt install make
+    7  make
+    8  vim prog.asm
+    9  ls
+   10  make
+   11  sudo apt install nasm
+   12  make
+   13  nasm -v
+   14  sudo apt install
+   15  sudo apt update
+   16  sudo apt upgrade
+   17  nasm -v
+   18  sudo pacman -S nasm
+   19  sudo apt install nasm
+   20  make
+   21  vim lst.l
+   22  rm obj.o
+   23  rm exe.x
+   24  make
+   25  ls
+   26  vim lst.l
+   27  history > Terminal.txt

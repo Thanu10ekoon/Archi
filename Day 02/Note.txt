@@ -1,0 +1,80 @@
+Commands
+$vim Makefile
+
+	Makefile
+
+		"exe.x:obj.o
+			ld -m elf_i386 -o exe.x obj.o
+		obj.o:prog.asm
+			nasm -f elf32 -g -F stabs -l lst.l -o obj.o prog.asm
+		"
+$make -> This will run the program
+
+
+			*We can execute codes without typing long things using this
+			*
+
+$vim prog.asm
+	"section .data
+		msg db 'Hello, World!', 0xA
+		len equ $ - msg
+
+	section .text
+		global _start
+
+	_start:
+
+		mov eax, 4
+		mov ebx, 1
+		mov ecx, msg
+		mov edx, len
+		int 0x80
+
+		mov eax, 1
+		mov ebx, 0
+		int 0x80
+	"
+
+
+
+$vim lst.l -> will show the list file context
+
+	"     1                                  section .data
+		 2 00000000 48656C6C6F2C20576F-             msg db 'Hello, World!', 0xA
+		 2 00000009 726C64210A
+		 3                                          len equ $ - msg
+		 4
+		 5                                  section .text
+		 6                                          global _start
+		 7
+		 8                                  _start:
+		 9
+		10 00000000 B804000000                      mov eax, 4
+		11 00000005 BB01000000                      mov ebx, 1
+		12 0000000A B9[00000000]                    mov ecx, msg
+		13 0000000F BA0E000000                      mov edx, len
+		14 00000014 CD80                            int 0x80
+		15
+		16 00000016 B801000000                      mov eax, 1
+		17 0000001B BB00000000                      mov ebx, 0
+		18 00000020 CD80                            int 0x80"
+
+			*There,+ First column is memory address
+			*	   + second column contains data storing in each memory
+						ex:- in here section.data reserves memory for the string "Hello World" where it it's starting memory address is in 1st column
+							 and in second column, each character (H,e,l,l,o.....) are saved in hexadecimal (48 = H in hexadecimal)
+				   + instructions also have hexadecimal values like "mov = B8"
+				   
+				   +3rd column has prog.asm file.
+						int 0x80 is a activity to run codes above it
+							0x80 id s big library the number after each mov eax, 4 (here 4) / mov ebx, 1 ( here 1) decide which function to use in 0x80
+			*ebx, eax .... are small parts of registry
+			
+			
+GPMs (General Purpose Machines)
+	*Does one of +,/,*,-,AND,OR,XOR at one time.
+	*It can change between those ops
+	
+JVNA (John von Neumann Architecture)
+	*Data & Instructions are stored in a single read-write memory.
+	*(Data and Instructions all are in single memory section. No seperations)
