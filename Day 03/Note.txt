@@ -1,0 +1,86 @@
+*in linux, everything is a file
+
+
+prog.asm
+		section .data				-> initialized variable memory
+
+		section .bss				-> uninitialized variable memory
+			buf resb 1
+
+		section .text
+			global _start
+
+		_start:
+
+			mov eax, 3		;sys call
+			mov ebx, 0		;stdin				
+			mov ecx, buf	;mem
+			mov edx, 1		;length
+			int 0x80		;interrupt 0x80
+
+			mov eax, 1
+			mov ebx, 0
+			int 0x80
+
+			mov al, Byte[buf]				-> copies 1 byte of data in memory location called buf to registry/variable call al
+			inc al							-> increase the value in al by 1 (al ++) (if input is 5 or a, buf had that and al received it and now it is 5->6 or a->b)
+			mov byte[buf], al
+
+			mov eax, 4		;sys call
+			mov ebx, 1		;stdout
+			mov ecx, buf	;mem
+			mov edx, 1		;length
+			int 0x80
+
+			mov eax, 1
+			mov ebx. 0
+			int 0x80
+			
+*Sir's Note
+		section .data				;initialized memory(data) segment
+
+		section .bss				;Uninitialized data segment
+			buf resb 1				;reserve 1 byte at the address "buf"
+
+		section .text				; Code (text) segment
+			global _start
+
+		_start:						;Program starting point
+
+			mov eax, 3				;System call number (3 = read from file)
+			mov ebx, 0				;0 = read from stdin (keyboard)
+			mov ecx, buf			;store data read from stdin at buf
+			mov edx, 1				;1 = number of bytes to read
+			int 0x80				;interrupt 0x80 (call kernel)
+
+			mov al, Byte[buf]		;copy content at buf (indicated by [buf] to the register "al")
+			inc al					;increases value of al by 1
+			mov byte[buf], al		;copy value of al into [buf]
+
+			mov eax, 4				;sys cakk 4 = werite to file
+			mov ebx, 1				; l=file=stdout
+			mov ecx, buf			;get data to write from buf
+			mov edx, 1				;length of bytes to write
+			int 0x80				; call kernel
+
+			mov eax, 1				;sys call no = 1 (exit to OS)
+			mov ebx, 0				;value to return to OS
+			int 0x80				;call kernel
+
+
+*in a typcal getchar() funtion;
+
+		getchar(0,buf,1)
+		0->stdin
+		buf-->memory
+		1->
+		
+		*this is equivalent to lines 15-19
+		
+* syscall(3,0,buf,1)
+
+	syscall - > 0x80
+	3		- > No (number)
+	0		- > stdin
+	buf		- > memory
+	
